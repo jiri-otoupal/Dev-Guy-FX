@@ -5,6 +5,7 @@ import com.devguy.devguyfx.level.Level;
 import com.devguy.devguyfx.level.MainMenuLevel;
 import com.devguy.devguyfx.level.Streamer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,22 +53,19 @@ public class DGApplication extends Application {
 
     private void runGame(Streamer streamer) {
 
-        Task<Void> task = new Task<>() {
-            @Override
-            public Void call() {
+
+        Thread t = new Thread(() -> {
+
+            while (true) {
                 try {
-                    while (true) {
-                        long tts = streamer.render();
-                        Thread.sleep(tts == 0 ? 1 : tts);
-                    }
-                } catch (IOException | InterruptedException | ClassNotFoundException | InvocationTargetException |
+                    Thread.sleep(25);
+                    streamer.render();
+                } catch (InterruptedException | IOException | ClassNotFoundException | InvocationTargetException |
                          InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                    Thread.dumpStack();
                     throw new RuntimeException(e);
                 }
             }
-        };
-        Thread t = new Thread(task);
+        });
         t.setDaemon(true);
         t.setName("Render thread");
         t.start();
