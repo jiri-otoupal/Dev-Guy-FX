@@ -23,6 +23,7 @@ import java.util.List;
 
 public class Streamer {
     public TextArea terminal;
+
     private com.devguy.devguyfx.level.Level loadedLevel = null;
     public Controller controller;
     private final List<IEntity> listeners;
@@ -203,7 +204,8 @@ public class Streamer {
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        return 1000 / (target_fps * (frame_time + 1));
+
+        return 1000 / target_fps;
     }
 
 }

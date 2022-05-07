@@ -27,7 +27,7 @@ public class DGApplication extends Application {
         GameController gameController = fxmlLoader.getController();
         TextArea game_screen = gameController.game_screen;
 
-        Streamer streamer = new Streamer(null, 60, game_screen);
+        Streamer streamer = new Streamer(null, 50, game_screen);
 
         game_screen.textProperty().bind(streamer.currentFrame);
 
@@ -50,12 +50,14 @@ public class DGApplication extends Application {
         Thread t = new Thread(() -> {
 
             while (true) {
+                long toSleep = streamer.render();
+
                 try {
-                    Thread.sleep(20); // If too low can cause crashes !
+                    Thread.sleep(toSleep); // If too low can cause crashes stay above 20 !
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                streamer.render();
+
 
             }
         });
