@@ -11,7 +11,5 @@ public class GameController {
 
     public void initialize() {
         game_screen.setFont(Font.font("monospace"));
-        game_screen.setWrapText(true);
-        game_screen.setCache(false);
     }
 }

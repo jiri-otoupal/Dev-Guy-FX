@@ -9,6 +9,9 @@ import com.devguy.devguyfx.entities.props.background.BackgroundProp;
 import com.devguy.devguyfx.entities.textrender.StaticText;
 import com.devguy.devguyfx.saves.SaveOperator;
 import com.devguy.devguyfx.structure.Point;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextArea;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +31,8 @@ public class Streamer {
     public int height;
     public Entity1D[][] map;
     public Player player = null;
+    public StringProperty currentFrame = new SimpleStringProperty();
+    private final StringBuilder renderOutput;
 
     public Streamer(Controller controller, int target_fps, TextArea terminal) throws IOException {
         this.terminal = terminal;
@@ -38,6 +43,7 @@ public class Streamer {
         this.map = new Entity1D[height][width];
         this.listeners = new ArrayList<>();
         this.clear();
+        renderOutput = new StringBuilder(this.width * this.height);
     }
 
     /**
@@ -150,22 +156,17 @@ public class Streamer {
         System.gc();
     }
 
+    public void setTextFrame(String textFrame) {
+        Platform.runLater(() -> terminal.setText(textFrame));
+    }
 
     /**
      * Render loaded level with all objects and signals called
-     *
-     * @throws IOException               on terminal output
-     * @throws InterruptedException
-     * @throws ClassNotFoundException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws IllegalAccessException    if failed to access
-     * @throws NoSuchMethodException     Returns time to sleep for next frame
      */
-    public long render() throws IOException, InterruptedException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public long render() {
         long frame_start = System.currentTimeMillis();
-        terminal.setText("");
-        StringBuilder renderOutput = new StringBuilder(this.width * this.height);
+
+        renderOutput.setLength(0);
 
         for (int line = 0; line < this.height; line++) { //-1 because of ground
             for (int column = 0; column < this.width; column++) {
@@ -192,10 +193,16 @@ public class Streamer {
             if (prop.absPosition != null && prop.visible)
                 prop.render(this.map, prop.absPosition);
 
+        //Platform.runLater(() -> terminal.setText(renderOutput.toString()));
+        currentFrame.setValue(renderOutput.toString());
 
-        terminal.setText(renderOutput.toString());
         long frame_time = System.currentTimeMillis() - frame_start;
-        this.broadcastTick(frame_time);
+        try {
+            this.broadcastTick(frame_time);
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
         return 1000 / (target_fps * (frame_time + 1));
     }
 
