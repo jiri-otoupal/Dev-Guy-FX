@@ -80,7 +80,7 @@
         </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <TextArea fx:id="game_screen" editable="false" prefHeight="335.0" prefWidth="640.0"
+                <TextArea fx:id="game_screen" id="game_screen" editable="false" prefHeight="335.0" prefWidth="640.0"
                           AnchorPane.bottomAnchor="45.0"
                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                 <ToggleButton fx:id="inventory_toggle" onAction="#toggleInventory" layoutX="519.0" layoutY="331.0"
@@ -112,7 +112,7 @@
                         <Insets bottom="3.0" right="3.0" top="3.0"/>
                     </padding>
                 </AnchorPane>
-                <GridPane fx:id="hotbar" layoutY="377.0" prefHeight="43.0" prefWidth="517.0"
+                <GridPane fx:id="hotbar" id="hotbar" layoutY="377.0" prefHeight="43.0" prefWidth="517.0"
                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="123.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>

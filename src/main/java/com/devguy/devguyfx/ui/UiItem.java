@@ -1,7 +1,8 @@
 package com.devguy.devguyfx.ui;
 
+import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.structure.Point;
-import javafx.geometry.Point2D;
+import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,23 +14,25 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 
 public class UiItem {
-    public Point2D startLocation;
+    public Item item;
     public String representedImgPath;
     protected Point gridLocation;
     protected GridPane parentGrid;
+    protected ImageView imageView;
 
-    public UiItem(URL representedImgPath, Point gridLocation, GridPane parentGrid) {
+    public UiItem(Item item, URL representedImgPath, Point gridLocation, GridPane parentGrid) {
+        this.item = item;
         this.representedImgPath = String.valueOf(representedImgPath);
         this.gridLocation = gridLocation;
         this.parentGrid = parentGrid;
 
-        ImageView imageView = new ImageView(String.valueOf(representedImgPath));
+        imageView = new ImageView(String.valueOf(representedImgPath));
         imageView.setOnDragDetected(e -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.COPY);
             db.setDragView(new Image(String.valueOf(representedImgPath)));
             imageView.getScene().setCursor(Cursor.HAND);
             ClipboardContent cc = new ClipboardContent();
-            cc.putString("");
+            cc.putString(item.itemName);
             db.setContent(cc);
         });
 
@@ -40,6 +43,13 @@ public class UiItem {
         });
 
 
-        parentGrid.add(imageView, gridLocation.x, gridLocation.y);
+
+        //Use this for interaction with GUI thread !
+        Platform.runLater(() -> parentGrid.add(imageView, gridLocation.x, gridLocation.y));
+    }
+
+
+    public void destroy() {
+        Platform.runLater(() -> this.parentGrid.getChildren().remove(imageView));
     }
 }

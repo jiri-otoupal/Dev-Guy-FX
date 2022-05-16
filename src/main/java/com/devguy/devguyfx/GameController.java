@@ -1,14 +1,20 @@
 package com.devguy.devguyfx;
 
+import com.devguy.devguyfx.entities.Player;
+import com.devguy.devguyfx.level.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.PickResult;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -24,15 +30,62 @@ public class GameController {
     @FXML
     public GridPane hotbar;
     public VBox window;
+    private static GameController single_instance = null;
+
+    public static GameController getInstance() {
+        if (single_instance == null)
+            single_instance = new GameController();
+
+        return single_instance;
+    }
 
 
     public void initialize() {
+        single_instance = this;
         game_screen.setFont(Font.font("monospace"));
         //Init button text
         toggleInventory(null);
 
-        inventory_pane.setOnDragDropped(e->{
-            e.getAcceptedTransferMode();
+
+        window.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            PickResult a = event.getPickResult();
+            Node c = a.getIntersectedNode();
+
+
+            Integer columnIndex = GridPane.getColumnIndex(c);
+            Integer rowIndex = GridPane.getRowIndex(c);
+            event.consume();
+        });
+
+        window.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                System.out.println("Dropped: " + db.getString());
+                success = true;
+            }
+            event.setDropCompleted(success);
+
+            PickResult a = event.getPickResult();
+            Node c = a.getIntersectedNode();
+
+            if (c.getClass().equals(Text.class)) {
+                try {
+                    Player player = Player.getInstance();
+                    player.backpack.removeItem(db.getString()).first.use(player);
+                } catch (Level.InvalidTemplateMap e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            //Integer columnIndex = GridPane.getColumnIndex(c);
+            //Integer rowIndex = GridPane.getRowIndex(c);
+            //UiItem uiItem = new UiItem(null, DGApplication.class.getResource("items/coffee.png"), new Point(columnIndex, rowIndex), this.items);
+            event.consume();
         });
     }
 

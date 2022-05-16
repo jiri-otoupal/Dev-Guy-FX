@@ -117,7 +117,7 @@ public class SaveOperator {
                 Element itemElement = dom.createElement("item");
                 Element name = dom.createElement("name");
                 itemElement.appendChild(name);
-                name.appendChild(dom.createTextNode(player.backpack.items.get(item).first.itemName));
+                name.appendChild(dom.createTextNode(player.backpack.items.get(item).first.item.itemName));
                 Element count = dom.createElement("count");
                 itemElement.appendChild(count);
                 count.appendChild(dom.createTextNode(String.valueOf(player.backpack.items.get(item))));
