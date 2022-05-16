@@ -2,6 +2,7 @@ package com.devguy.devguyfx.entities;
 
 import com.devguy.devguyfx.entities.effects.EffectHitPlayer;
 import com.devguy.devguyfx.entities.items.Item;
+import com.devguy.devguyfx.entities.items.effects.ItemEffect;
 import com.devguy.devguyfx.entities.textrender.StaticText;
 import com.devguy.devguyfx.level.DeadMenuLevel;
 import com.devguy.devguyfx.level.Level;
@@ -12,13 +13,12 @@ import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Player extends AliveEntity {
     public Backpack backpack;
     protected StaticText displayedHealth;
-    public Map<String, Long> activeItems;
+    public Map<String, ItemEffect> activeEffects;
 
     public Player(Level currentLevel, int health, float speed, long fireRateMs) {
         super(currentLevel, health, speed, fireRateMs, 6, 0.15F);
@@ -27,7 +27,7 @@ public class Player extends AliveEntity {
         this.currentLevel.streamer.controller.controlledAliveEntity = this;
         this.frameDurationMs = 50;
         this.loops = true;
-        activeItems = new HashMap<>();
+        activeEffects = new HashMap<>();
         animationState = new char[][][][]{
                 {//Idle
                         {
@@ -165,7 +165,7 @@ public class Player extends AliveEntity {
     public Player(Level currentLevel, Player player) {
         this(currentLevel, (int) player.health, player.speed, player.fireRate);
         this.backpack = player.backpack;
-        this.activeItems = player.activeItems;
+        this.activeEffects = player.activeEffects;
     }
 
     /**
@@ -219,14 +219,14 @@ public class Player extends AliveEntity {
      */
     @Override
     public void decayEffectFromItems(long ticksMs) {
-        for (String itemKey : activeItems.keySet()) {
-            Long effectDuration = activeItems.get(itemKey);
-            if (effectDuration != null && effectDuration > 0) {
-                activeItems.replace(itemKey, effectDuration - ticksMs);
-            } else if (effectDuration != null) { // If duration is eq or less than 0 remove item from effects
-                activeItems.remove(itemKey);
-                this.fireRate = 100;
-                this.sayStatic("Deprecated " + itemKey);
+        for (int i = 0; i < activeEffects.size(); i++) {
+            ItemEffect itemEffect = activeEffects.get(activeEffects.keySet().toArray()[i]);
+            if (itemEffect != null && itemEffect.decayTime > 0) {
+                itemEffect.apply(this);
+                itemEffect.decayTime -= ticksMs;
+            } else if (itemEffect != null) { // If duration is eq or less than 0 remove item from effects
+                activeEffects.remove(itemEffect.effectName);
+                this.sayStatic("Deprecated " + itemEffect.effectName);
             }
         }
     }
@@ -242,8 +242,8 @@ public class Player extends AliveEntity {
      */
     @Override
     public void spawnProjectile(Level currentLevel, float damage, float mass, boolean enableGravity, boolean applyPhysicsImpulse, Point spawnPoint, ForceVector vector) {
-        Long itemCoffee = activeItems.get("Coffee");
-        if (itemCoffee != null && itemCoffee > 0)
+        Long itemCoffeeDecay = activeEffects.get("Coffein").decayTime;
+        if (itemCoffeeDecay != null && itemCoffeeDecay > 0)
             new Cpp(currentLevel, damage * 2, mass * 2, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(1.5F));
         else
             new Csharp(currentLevel, damage, mass, enableGravity, applyPhysicsImpulse, spawnPoint, vector);
