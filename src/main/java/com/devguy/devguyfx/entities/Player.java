@@ -12,6 +12,7 @@ import com.devguy.devguyfx.projectile.Cpp;
 import com.devguy.devguyfx.projectile.Csharp;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -230,11 +231,12 @@ public class Player extends AliveEntity {
     @Override
     public void decayEffectFromItems(long ticksMs) {
 
-        if (activeItems == null)
+        if (activeEffects == null)
             return;
 
         for (int i = 0; i < activeEffects.size(); i++) {
-            ItemEffect itemEffect = activeEffects.get(activeEffects.keySet().toArray()[i]);
+            Object key = activeEffects.keySet().toArray()[i];
+            ItemEffect itemEffect = activeEffects.get(key);
             if (itemEffect != null && itemEffect.decayTime > 0) {
                 itemEffect.apply(this);
                 itemEffect.decayTime -= ticksMs;
@@ -256,8 +258,10 @@ public class Player extends AliveEntity {
      */
     @Override
     public void spawnProjectile(Level currentLevel, float damage, float mass, boolean enableGravity, boolean applyPhysicsImpulse, Point spawnPoint, ForceVector vector) {
-        Long itemCoffeeDecay = activeEffects.get("Coffein").decayTime;
-        if (itemCoffeeDecay != null && itemCoffeeDecay > 0)
+        ItemEffect itemCoffeeDecay = null;
+        if (activeEffects.size() > 0)
+            itemCoffeeDecay = activeEffects.get("Coffeine");
+        if (itemCoffeeDecay != null && itemCoffeeDecay.decayTime > 0)
             new Cpp(currentLevel, damage * 2, mass * 2, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(1.5F));
         else
             new Csharp(currentLevel, damage, mass, enableGravity, applyPhysicsImpulse, spawnPoint, vector);

@@ -6,7 +6,7 @@ public abstract class ItemEffect {
     public long decayTime;
     public String effectName;
 
-    public ItemEffect(int decayTime, String effectName) {
+    public ItemEffect(long decayTime, String effectName) {
         this.decayTime = decayTime;
         this.effectName = effectName;
     }

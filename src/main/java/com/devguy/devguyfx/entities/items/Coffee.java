@@ -23,9 +23,9 @@ public class Coffee extends ItemWithEffect {
     public boolean use(Entity1D instigator) {
         // Only player can use coffee this cast is safe
         Player player = (Player) instigator;
-        player.activeEffects.put(itemName, new Coffeine((int) effectTicksMsLast));
+        Coffeine coffeine = new Coffeine(effectTicksMsLast);
+        player.activeEffects.put(coffeine.effectName, coffeine);
         player.sayStatic("Used " + itemName);
-        player.fireRate = 75;
         return true;
     }
 

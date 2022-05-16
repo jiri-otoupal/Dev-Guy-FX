@@ -41,7 +41,7 @@ public class UiItem {
 
         this.itemPane = new StackPane(imageView, label);
 
-        imageView.setOnDragDetected(e -> {
+        itemPane.setOnDragDetected(e -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.COPY);
             db.setDragView(new Image(String.valueOf(representedImgPath)));
             imageView.getScene().setCursor(Cursor.HAND);
@@ -50,7 +50,7 @@ public class UiItem {
             db.setContent(cc);
         });
 
-        imageView.setOnDragDone(event -> {
+        itemPane.setOnDragDone(event -> {
             Dragboard dragb = event.getDragboard();
             dragb.getDragView();
             imageView.getScene().setCursor(Cursor.DEFAULT);

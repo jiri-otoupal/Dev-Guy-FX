@@ -5,12 +5,12 @@ import com.devguy.devguyfx.entities.Player;
 public class Coffeine extends ItemEffect {
 
 
-    public Coffeine(int decayTime) {
+    public Coffeine(long decayTime) {
         super(decayTime, "Coffeine");
     }
 
     @Override
     public void apply(Player instigator) {
-        instigator.fireRate +=75;
+        instigator.fireRate =75;
     }
 }

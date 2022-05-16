@@ -2,6 +2,7 @@ package com.devguy.devguyfx.entities.items;
 
 import com.devguy.devguyfx.entities.Entity1D;
 import com.devguy.devguyfx.entities.Player;
+import com.devguy.devguyfx.entities.items.effects.HolyWaterEffect;
 import com.devguy.devguyfx.level.Level;
 
 public class HolyWater extends ItemWithEffect {
@@ -22,7 +23,7 @@ public class HolyWater extends ItemWithEffect {
     @Override
     public boolean use(Entity1D instigator) throws Level.InvalidTemplateMap {
         Player player = (Player) instigator;
-        player.activeEffects.put(itemName, effectTicksMsLast);
+        player.activeEffects.put(itemName, new HolyWaterEffect(10));
         player.sayStatic("Used " + itemName);
         player.fireRate = 100;
         return true;
