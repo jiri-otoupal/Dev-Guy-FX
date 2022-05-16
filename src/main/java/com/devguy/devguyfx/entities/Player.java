@@ -1,5 +1,6 @@
 package com.devguy.devguyfx.entities;
 
+import com.devguy.devguyfx.GameController;
 import com.devguy.devguyfx.entities.effects.EffectHitPlayer;
 import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.entities.items.effects.ItemEffect;
@@ -11,19 +12,28 @@ import com.devguy.devguyfx.projectile.Cpp;
 import com.devguy.devguyfx.projectile.Csharp;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
+import java.util.HashMap;
+import java.util.Map;
 
-
-import java.util.*;
 
 public class Player extends AliveEntity {
+    private static Player instance;
+    public Backpack hotbar;
     public Backpack backpack;
     protected StaticText displayedHealth;
     public Map<String, ItemEffect> activeEffects;
 
+    static public Player getInstance() {
+        return Player.instance;
+    }
+
     public Player(Level currentLevel, int health, float speed, long fireRateMs) {
         super(currentLevel, health, speed, fireRateMs, 6, 0.15F);
+
+        Player.instance = this;
         this.absPosition = null;
-        this.backpack = new Backpack(10);
+        this.backpack = new Backpack(12, GameController.getInstance().items);
+        this.hotbar = new Backpack(6, GameController.getInstance().hotbar);
         this.currentLevel.streamer.controller.controlledAliveEntity = this;
         this.frameDurationMs = 50;
         this.loops = true;
@@ -219,6 +229,10 @@ public class Player extends AliveEntity {
      */
     @Override
     public void decayEffectFromItems(long ticksMs) {
+
+        if (activeItems == null)
+            return;
+
         for (int i = 0; i < activeEffects.size(); i++) {
             ItemEffect itemEffect = activeEffects.get(activeEffects.keySet().toArray()[i]);
             if (itemEffect != null && itemEffect.decayTime > 0) {

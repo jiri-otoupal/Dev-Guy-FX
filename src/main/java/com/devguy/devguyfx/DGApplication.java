@@ -11,23 +11,27 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 public class DGApplication extends Application {
 
+    public static FXMLLoader fxmlLoader;
+
 
     @Override
-    public void start(Stage stage) throws IOException, Level.InvalidTemplateMap, InterruptedException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-        FXMLLoader fxmlLoader = new FXMLLoader(DGApplication.class.getResource("game-screen.fxml"));
+    public void start(Stage stage) throws IOException, Level.InvalidTemplateMap {
+        FXMLLoader fxmlLoader = new FXMLLoader(DGApplication.class.getResource("game-screenV2.fxml"));
+        DGApplication.fxmlLoader = fxmlLoader;
         Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setTitle("DevGuy FX");
         stage.setScene(scene);
         stage.show();
 
         GameController gameController = fxmlLoader.getController();
+        //UiItem uiItem = new UiItem(null, DGApplication.class.getResource("items/coffee.png"), new Point(0, 0), gameController.items);
+        gameController.usedStage = stage;
         TextArea game_screen = gameController.game_screen;
 
-        Streamer streamer = new Streamer(null, 50, game_screen);
+        Streamer streamer = new Streamer(null, 45, game_screen);
 
         game_screen.textProperty().bind(streamer.currentFrame);
 
