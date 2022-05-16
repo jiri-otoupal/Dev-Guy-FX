@@ -16,9 +16,10 @@ import java.net.URL;
 public class UiItem {
     public Item item;
     public String representedImgPath;
-    protected Point gridLocation;
+    public Point gridLocation;
     protected GridPane parentGrid;
     protected ImageView imageView;
+
 
     public UiItem(Item item, URL representedImgPath, Point gridLocation, GridPane parentGrid) {
         this.item = item;
@@ -27,6 +28,7 @@ public class UiItem {
         this.parentGrid = parentGrid;
 
         imageView = new ImageView(String.valueOf(representedImgPath));
+
         imageView.setOnDragDetected(e -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.COPY);
             db.setDragView(new Image(String.valueOf(representedImgPath)));

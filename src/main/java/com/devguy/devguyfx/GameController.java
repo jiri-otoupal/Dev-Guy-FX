@@ -1,6 +1,7 @@
 package com.devguy.devguyfx;
 
 import com.devguy.devguyfx.entities.Player;
+import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.level.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,18 +74,29 @@ public class GameController {
             PickResult a = event.getPickResult();
             Node c = a.getIntersectedNode();
 
+            Player player = Player.getInstance();
             if (c.getClass().equals(Text.class)) {
                 try {
-                    Player player = Player.getInstance();
                     player.backpack.removeItem(db.getString()).first.use(player);
                 } catch (Level.InvalidTemplateMap e) {
                     throw new RuntimeException(e);
                 }
+            } else if (c.getClass().equals(GridPane.class) && ((GridPane) c).getRowCount() == 1 &&
+                    player.hotbar.items.size() <= player.hotbar.maxSize) { //hot bar
+                Item backpackItem = player.backpack.removeItem(db.getString()).first;
+                player.hotbar.insertItem(backpackItem);
+            } else if (c.getClass().equals(GridPane.class) && ((GridPane) c).getRowCount() > 2 && player.hotbar.getAmount(db.getString()) > 0) { //items
+                Item backpackItem = player.hotbar.removeItem(db.getString()).first;
+                player.backpack.insertItem(backpackItem);
             }
 
             //Integer columnIndex = GridPane.getColumnIndex(c);
             //Integer rowIndex = GridPane.getRowIndex(c);
+
+            //System.out.println("x".concat(columnIndex.toString()).concat(" ").concat("y").concat(rowIndex.toString()));
+
             //UiItem uiItem = new UiItem(null, DGApplication.class.getResource("items/coffee.png"), new Point(columnIndex, rowIndex), this.items);
+
             event.consume();
         });
     }

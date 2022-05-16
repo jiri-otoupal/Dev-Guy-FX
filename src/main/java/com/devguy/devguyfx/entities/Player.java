@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class Player extends AliveEntity {
     private static Player instance;
+    public Backpack hotbar;
     public Backpack backpack;
     protected StaticText displayedHealth;
     public Map<String, Long> activeItems;
@@ -31,6 +32,7 @@ public class Player extends AliveEntity {
         Player.instance = this;
         this.absPosition = null;
         this.backpack = new Backpack(12, GameController.getInstance().items);
+        this.hotbar = new Backpack(6,GameController.getInstance().hotbar);
         this.currentLevel.streamer.controller.controlledAliveEntity = this;
         this.frameDurationMs = 50;
         this.loops = true;
