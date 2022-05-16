@@ -2,13 +2,13 @@ package com.devguy.devguyfx.entities.items;
 
 import com.devguy.devguyfx.entities.Entity1D;
 import com.devguy.devguyfx.entities.Player;
-import com.devguy.devguyfx.entities.items.effects.Coffeine;
 import com.devguy.devguyfx.level.Level;
 
-public class Coffee extends ItemWithEffect {
-    public Coffee(Level currentLevel) {
-        super(currentLevel, false, "Coffee", 2500);
-        this.animationState = new char[][][][]{{{{'c', '[', '_', ']'}}, {{'c', '[', '▁', ']'}}, {{'c', '[', '▂', ']'}}, {{'c', '[', '▃', ']'}}, {{'c', '[', '▄', ']'}}}};
+public class HolyWater extends ItemWithEffect {
+
+    public HolyWater(Level currentLevel) {
+        super(currentLevel, false, "Holy Water", 2500);
+        this.animationState = new char[][][][]{{{{'†', '[', '_', ']'}}, {{'†', '[', '▁', ']'}}, {{'†', '[', '▂', ']'}}, {{'†', '[', '▃', ']'}}, {{'†', '[', '▄', ']'}}}};
         this.selectedAnimationFrames = this.animationState[this.currentAnimationState];
         this.frameDurationMs = 25;
     }
@@ -20,12 +20,11 @@ public class Coffee extends ItemWithEffect {
      * @return result use of item succeeded
      */
     @Override
-    public boolean use(Entity1D instigator) {
-        // Only player can use coffee this cast is safe
+    public boolean use(Entity1D instigator) throws Level.InvalidTemplateMap {
         Player player = (Player) instigator;
-        player.activeEffects.put(itemName, new Coffeine((int) effectTicksMsLast));
+        player.activeEffects.put(itemName, effectTicksMsLast);
         player.sayStatic("Used " + itemName);
-        player.fireRate = 75;
+        player.fireRate = 100;
         return true;
     }
 
