@@ -9,7 +9,7 @@ public class PlayerPawnController extends Controller {
 
     public void useHotItem(int index) {
         for (Pair<UiItem, Integer> item : controlledAliveEntity.hotbar.items.values()) {
-            if (item.first.gridLocation.x == index) {
+            if (item.first.gridLocation.x == index-1) {
                 controlledAliveEntity.hotbar.removeItem(item.first.item.itemName);
                 try {
                     item.first.item.use(this.controlledAliveEntity);

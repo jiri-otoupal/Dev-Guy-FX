@@ -36,12 +36,16 @@ public class Backpack {
     public boolean insertItem(Item item) {
         if (this.items.size() >= maxSize)
             return false;
-        UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/coffee.png"), nextPosition(), renderTarget);
+
 
         if (this.items.containsKey(item.itemName)) {
-            Integer storedCount = this.items.get(item.itemName).second;
-            this.items.put(item.itemName, new Pair<>(uiItem, storedCount + 1));
+            Pair<UiItem, Integer> pair = this.items.get(item.itemName);
+            Integer storedCount = pair.second;
+
+            pair.first.setCount(storedCount + 1);
+            this.items.put(item.itemName, new Pair<>(pair.first, storedCount + 1));
         } else {
+            UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/coffee.png"), nextPosition(), renderTarget, 1);
             this.items.put(item.itemName, new Pair<>(uiItem, 1));
         }
         return true;
@@ -50,7 +54,12 @@ public class Backpack {
     public @Nullable Pair<Item, Integer> removeItem(String itemName) {
         if (this.items.containsKey(itemName)) {
             Pair<UiItem, Integer> pair = this.items.remove(itemName);
-            pair.first.destroy();
+            if (pair.second > 1) {
+                pair.first.setCount(pair.second - 1);
+                this.items.put(itemName, new Pair<>(pair.first, pair.second - 1));
+            } else {
+                pair.first.destroy();
+            }
             return new Pair<>(pair.first.item, pair.second);
         }
         return null;

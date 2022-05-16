@@ -3,6 +3,7 @@ package com.devguy.devguyfx;
 import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.level.Level;
+import com.devguy.devguyfx.structure.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -77,17 +78,28 @@ public class GameController {
             Player player = Player.getInstance();
             if (c.getClass().equals(Text.class)) {
                 try {
-                    player.backpack.removeItem(db.getString()).first.use(player);
+                    Pair<Item, Integer> item = player.backpack.removeItem(db.getString());
+                    if (item != null) {
+                        item.first.use(player);
+                        return;
+                    }
+                    item = player.hotbar.removeItem(db.getString());
+                    if (item != null) {
+                        item.first.use(player);
+                        return;
+                    }
                 } catch (Level.InvalidTemplateMap e) {
                     throw new RuntimeException(e);
                 }
             } else if (c.getClass().equals(GridPane.class) && ((GridPane) c).getRowCount() == 1 &&
                     player.hotbar.items.size() <= player.hotbar.maxSize) { //hot bar
-                Item backpackItem = player.backpack.removeItem(db.getString()).first;
-                player.hotbar.insertItem(backpackItem);
+                Pair<Item, Integer> backpackItem = player.backpack.removeItem(db.getString());
+                if (backpackItem != null)
+                    player.hotbar.insertItem(backpackItem.first);
             } else if (c.getClass().equals(GridPane.class) && ((GridPane) c).getRowCount() > 2 && player.hotbar.getAmount(db.getString()) > 0) { //items
-                Item backpackItem = player.hotbar.removeItem(db.getString()).first;
-                player.backpack.insertItem(backpackItem);
+                Pair<Item, Integer> backpackItem = player.hotbar.removeItem(db.getString());
+                if (backpackItem != null)
+                    player.backpack.insertItem(backpackItem.first);
             }
 
             //Integer columnIndex = GridPane.getColumnIndex(c);

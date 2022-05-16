@@ -32,7 +32,7 @@ public class Player extends AliveEntity {
         Player.instance = this;
         this.absPosition = null;
         this.backpack = new Backpack(12, GameController.getInstance().items);
-        this.hotbar = new Backpack(6,GameController.getInstance().hotbar);
+        this.hotbar = new Backpack(6, GameController.getInstance().hotbar);
         this.currentLevel.streamer.controller.controlledAliveEntity = this;
         this.frameDurationMs = 50;
         this.loops = true;
@@ -228,6 +228,9 @@ public class Player extends AliveEntity {
      */
     @Override
     public void decayEffectFromItems(long ticksMs) {
+        if (activeItems == null)
+            return;
+
         for (String itemKey : activeItems.keySet()) {
             Long effectDuration = activeItems.get(itemKey);
             if (effectDuration != null && effectDuration > 0) {
