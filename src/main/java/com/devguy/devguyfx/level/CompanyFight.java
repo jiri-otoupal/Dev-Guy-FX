@@ -1,6 +1,6 @@
 package com.devguy.devguyfx.level;
 
-import com.devguy.devguyfx.entities.*;
+import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.enemies.Skeleton;
 import com.devguy.devguyfx.entities.enemies.SpawnPoint;
 import com.devguy.devguyfx.entities.items.Coffee;
@@ -26,7 +26,7 @@ public class CompanyFight extends Level {
                 "i     m                                              n                         i",
                 "i                                                                              i",
                 "i                                                                              i",
-                "i            b                    s                                            i",
+                "i                                 s                                            i",
                 "i          g         h                        f                                i",
                 "i                                                                              i",
                 "i                                                                              i",
@@ -36,7 +36,7 @@ public class CompanyFight extends Level {
                 "i                                                                     l        i",
                 "i     o                                              u                         i",
                 "i                                                                              i",
-                "i             p         c                                           e          i",
+                "i             p         c     b                                     e          i",
                 "i                    k                                                         i",
                 "i                                             w                                i",
                 "i                                             w                                i",
