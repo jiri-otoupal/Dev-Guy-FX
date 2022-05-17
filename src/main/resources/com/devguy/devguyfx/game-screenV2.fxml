@@ -87,9 +87,15 @@
         </HBox>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
+
                 <TextArea fx:id="game_screen" id="game_screen" editable="false" prefHeight="335.0" prefWidth="640.0"
                           AnchorPane.bottomAnchor="45.0"
                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <TextField fx:id="overlay" text="Overlay Text" editable="false" prefHeight="335.0" prefWidth="640.0"
+                           AnchorPane.bottomAnchor="45.0" style="-fx-font-size: 48" opacity="0.8" alignment="CENTER"
+                           visible="false"
+                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="0.0"/>
                 <ToggleButton fx:id="inventory_toggle" onAction="#toggleInventory" layoutX="519.0" layoutY="331.0"
                               mnemonicParsing="false" prefHeight="43.0" prefWidth="115.0" text="Inventory"
                               textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
