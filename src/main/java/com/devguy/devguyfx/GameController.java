@@ -14,6 +14,7 @@ import javafx.scene.input.PickResult;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -35,6 +36,7 @@ public class GameController {
     public VBox window;
     private static GameController single_instance = null;
     public Rectangle healthBar;
+    public HBox effectBar;
 
     public static GameController getInstance() {
         if (single_instance == null)

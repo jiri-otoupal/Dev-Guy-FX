@@ -15,8 +15,11 @@ import com.devguy.devguyfx.structure.Point;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -192,6 +195,23 @@ public class Player extends AliveEntity {
         return "rgb(" + red + "," + green + ",0)";
     }
 
+    private void updateEffects() {
+        HBox effectBar = GameController.getInstance().effectBar;
+        ArrayList<ImageView> effects = new ArrayList<>(activeEffects.size());
+
+        Platform.runLater(() ->
+                effectBar.getChildren().clear());
+        for (ItemEffect itemEffect : activeEffects.values()) {
+            ImageView effectImg = new ImageView(itemEffect.effectImg);
+            effectImg.setFitHeight(effectBar.getHeight());
+            effectImg.setPreserveRatio(true);
+            effectImg.setOpacity((float) itemEffect.decayTime / itemEffect.decayTimeMax);
+            effects.add(effectImg);
+        }
+        Platform.runLater(() -> effectBar.getChildren().addAll(effects));
+
+    }
+
     private void updateHealthBar() {
         float hp_percent = health / this.max_health;
         Platform.runLater(() ->
@@ -267,6 +287,7 @@ public class Player extends AliveEntity {
                 this.sayStatic("Deprecated " + itemEffect.effectName);
             }
         }
+        updateEffects();
     }
 
     /**

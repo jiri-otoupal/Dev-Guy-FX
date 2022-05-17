@@ -6,7 +6,7 @@ public class HolyWaterEffect extends ItemEffect {
 
 
     public HolyWaterEffect(long decayTime) {
-        super(decayTime, "HolyWater");
+        super(decayTime, "HolyWater", "items/hwater.png");
     }
 
     @Override

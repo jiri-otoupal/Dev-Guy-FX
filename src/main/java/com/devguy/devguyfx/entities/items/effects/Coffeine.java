@@ -6,11 +6,11 @@ public class Coffeine extends ItemEffect {
 
 
     public Coffeine(long decayTime) {
-        super(decayTime, "Coffeine");
+        super(decayTime, "Coffeine", "items/coffee.png");
     }
 
     @Override
     public void apply(Player instigator) {
-        instigator.fireRate =75;
+        instigator.fireRate = 75;
     }
 }
