@@ -25,7 +25,7 @@ public class UiItem {
     protected GridPane parentGrid;
     protected StackPane itemPane;
 
-    private Label label;
+    private final Label label;
 
 
     public UiItem(Item item, URL representedImgPath, Point gridLocation, GridPane parentGrid, int count) {
