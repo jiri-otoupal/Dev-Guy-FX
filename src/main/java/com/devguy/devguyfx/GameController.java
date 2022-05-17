@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.PickResult;
@@ -37,6 +38,7 @@ public class GameController {
     private static GameController single_instance = null;
     public Rectangle healthBar;
     public HBox effectBar;
+    public TextField overlay;
 
     public static GameController getInstance() {
         if (single_instance == null)

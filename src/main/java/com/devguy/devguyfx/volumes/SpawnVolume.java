@@ -1,9 +1,12 @@
 package com.devguy.devguyfx.volumes;
 
+import com.devguy.devguyfx.GameController;
 import com.devguy.devguyfx.entities.Entity1D;
-import com.devguy.devguyfx.entities.textrender.BannerText;
 import com.devguy.devguyfx.level.Level;
-import com.devguy.devguyfx.structure.Point;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 
 public class SpawnVolume extends Volume {
@@ -14,7 +17,16 @@ public class SpawnVolume extends Volume {
 
     @Override
     public boolean use(Entity1D instigator) {
-        new BannerText(currentLevel, currentLevel.name, 300, new Point(8, 2));
+
+        final KeyFrame kf1 = new KeyFrame(Duration.seconds(0), e -> {
+            GameController.getInstance().overlay.textProperty().setValue(currentLevel.name);
+            GameController.getInstance().overlay.visibleProperty().setValue(true);
+        });
+        final KeyFrame kf2 = new KeyFrame(Duration.millis(2000), e -> {
+            GameController.getInstance().overlay.visibleProperty().setValue(false);
+        });
+        final Timeline timeline = new Timeline(kf1, kf2);
+        Platform.runLater(timeline::play);
         erase();
         return true;
     }
