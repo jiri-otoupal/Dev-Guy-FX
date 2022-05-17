@@ -19,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -197,7 +196,6 @@ public class Player extends AliveEntity {
 
     private void updateEffects() {
         HBox effectBar = GameController.getInstance().effectBar;
-        ArrayList<ImageView> effects = new ArrayList<>(activeEffects.size());
 
         Platform.runLater(() ->
                 effectBar.getChildren().clear());
@@ -206,9 +204,9 @@ public class Player extends AliveEntity {
             effectImg.setFitHeight(effectBar.getHeight());
             effectImg.setPreserveRatio(true);
             effectImg.setOpacity((float) itemEffect.decayTime / itemEffect.decayTimeMax);
-            effects.add(effectImg);
+            Platform.runLater(() -> effectBar.getChildren().add(effectImg));
         }
-        Platform.runLater(() -> effectBar.getChildren().addAll(effects));
+
 
     }
 
