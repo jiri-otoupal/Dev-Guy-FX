@@ -7,10 +7,10 @@ import com.devguy.devguyfx.projectile.Projectile;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
 
-
 import java.util.Random;
 
 public abstract class AliveEntity extends Animated implements IAliveEntity {
+    protected final int max_health;
     protected boolean crouching = false;
     protected float jumpHeight;
     protected boolean shooting = false;
@@ -20,6 +20,7 @@ public abstract class AliveEntity extends Animated implements IAliveEntity {
 
     public AliveEntity(Level currentLevel, int health, float speed, long fireRate, float jumpHeight, float gravity) {
         super(currentLevel, true);
+        this.max_health = health;
         this.health = health;
         this.speed = speed;
         this.fireRate = fireRate;
@@ -135,6 +136,7 @@ public abstract class AliveEntity extends Animated implements IAliveEntity {
 
     /**
      * Displays dialog to say, it is split by words to be rolled through
+     *
      * @param text to display
      */
     @Override
@@ -144,6 +146,7 @@ public abstract class AliveEntity extends Animated implements IAliveEntity {
 
     /**
      * Display static text that is not split by words on rolling
+     *
      * @param text to display
      */
     @Override

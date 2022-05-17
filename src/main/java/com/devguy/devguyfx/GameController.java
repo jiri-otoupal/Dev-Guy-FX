@@ -15,6 +15,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,6 +34,7 @@ public class GameController {
     public GridPane hotbar;
     public VBox window;
     private static GameController single_instance = null;
+    public Rectangle healthBar;
 
     public static GameController getInstance() {
         if (single_instance == null)
@@ -76,6 +78,7 @@ public class GameController {
             Node c = a.getIntersectedNode();
 
             Player player = Player.getInstance();
+
             if (c.getClass().equals(Text.class)) {
                 try {
                     Pair<Item, Integer> item = player.backpack.removeItem(db.getString());

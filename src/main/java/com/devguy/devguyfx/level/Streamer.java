@@ -9,7 +9,6 @@ import com.devguy.devguyfx.entities.props.background.BackgroundProp;
 import com.devguy.devguyfx.entities.textrender.StaticText;
 import com.devguy.devguyfx.saves.SaveOperator;
 import com.devguy.devguyfx.structure.Point;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextArea;
@@ -22,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Streamer {
+    public int slowDownGameByMultiplayer;
     public TextArea terminal;
 
     private com.devguy.devguyfx.level.Level loadedLevel = null;
@@ -45,6 +45,7 @@ public class Streamer {
         this.listeners = new ArrayList<>();
         this.clear();
         renderOutput = new StringBuilder(this.width * this.height);
+        slowDownGameByMultiplayer = 10;
     }
 
     /**
@@ -157,15 +158,12 @@ public class Streamer {
         System.gc();
     }
 
-    public void setTextFrame(String textFrame) {
-        Platform.runLater(() -> terminal.setText(textFrame));
-    }
-
     /**
      * Render loaded level with all objects and signals called
      */
     public long render() {
-        long frame_start = System.currentTimeMillis();
+        long frame_time = 1000 / target_fps;
+
 
         renderOutput.setLength(0);
 
@@ -197,15 +195,15 @@ public class Streamer {
         //Platform.runLater(() -> terminal.setText(renderOutput.toString()));
         currentFrame.setValue(renderOutput.toString());
 
-        long frame_time = System.currentTimeMillis() - frame_start;
         try {
-            this.broadcastTick(frame_time);
+            this.broadcastTick(frame_time / slowDownGameByMultiplayer);
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
 
-        return 1000 / target_fps;
+
+        return frame_time;
     }
 
 }

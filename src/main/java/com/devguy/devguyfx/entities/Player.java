@@ -12,12 +12,17 @@ import com.devguy.devguyfx.projectile.Cpp;
 import com.devguy.devguyfx.projectile.Csharp;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
+import javafx.application.Platform;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.scene.paint.Paint;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Player extends AliveEntity {
+    public FloatProperty healthBarWidth = new SimpleFloatProperty();
     private static Player instance;
     public Backpack hotbar;
     public Backpack backpack;
@@ -30,7 +35,8 @@ public class Player extends AliveEntity {
 
     public Player(Level currentLevel, int health, float speed, long fireRateMs) {
         super(currentLevel, health, speed, fireRateMs, 6, 0.15F);
-
+        GameController.getInstance().healthBar.widthProperty().bind(this.healthBarWidth);
+        updateHealthBar();
         Player.instance = this;
         this.absPosition = null;
         this.backpack = new Backpack(12, GameController.getInstance().items);
@@ -179,6 +185,21 @@ public class Player extends AliveEntity {
         this.activeEffects = player.activeEffects;
     }
 
+
+    private String getColorFromPercentage(float p) {
+        var red = p < 50 ? 255 : Math.round(256 - (p - 50) * 5.12);
+        var green = p > 50 ? 255 : Math.round((p) * 5.12);
+        return "rgb(" + red + "," + green + ",0)";
+    }
+
+    private void updateHealthBar() {
+        float hp_percent = health / this.max_health;
+        Platform.runLater(() ->
+                GameController.getInstance().healthBar.fillProperty()
+                        .setValue(Paint.valueOf(getColorFromPercentage((int) (hp_percent * 100)))));
+        healthBarWidth.setValue(GameController.getInstance().window.getWidth() * hp_percent);
+    }
+
     /**
      * Player to die
      */
@@ -214,6 +235,7 @@ public class Player extends AliveEntity {
     @Override
     public void applyDamage(float damage) {
         this.health -= damage;
+        updateHealthBar();
         if (this.health > 0) {
             if (displayedHealth != null)
                 displayedHealth.erase();
