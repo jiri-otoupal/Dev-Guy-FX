@@ -42,7 +42,7 @@ abstract public class Animated extends Movable {
      * Update particles of animated object to streamer
      */
     public void updateParticles() {
-        if (this.currentLevel.streamer != null)
+        if (this.currentLevel != null && this.currentLevel.streamer != null)
             this.currentLevel.streamer.assignAt(this.absPosition, this);
     }
 
@@ -80,7 +80,7 @@ abstract public class Animated extends Movable {
      */
     @Override
     public void removeConnections() {
-        if (this.currentLevel.streamer != null)
+        if (this.currentLevel != null && this.currentLevel.streamer != null)
             this.currentLevel.streamer.removeListener(this);
         this.animationListeners.remove(this);
     }
