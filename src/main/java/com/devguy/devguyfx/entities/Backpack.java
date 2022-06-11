@@ -65,6 +65,20 @@ public class Backpack {
         return null;
     }
 
+    public void clearItem(String itemName) {
+        if (this.items.containsKey(itemName)) {
+            Pair<UiItem, Integer> pair = this.items.remove(itemName);
+            pair.first.destroy();
+            new Pair<>(pair.first.item, pair.second);
+        }
+    }
+
+    public void clearItems() {
+        for (String name : this.items.keySet()) {
+            this.clearItem(name);
+        }
+    }
+
     public int getAmount(String itemName) {
         if (!this.items.containsKey(itemName))
             return 0;
