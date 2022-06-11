@@ -9,6 +9,7 @@ import com.devguy.devguyfx.structure.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -168,5 +169,23 @@ public class GameController {
     }
 
     public void about(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("DevGuy FX");
+        alert.setHeaderText(null);
+        alert.setContentText("Autoři:" + System.lineSeparator() + "Anastasiia Topor (topa00) " +
+                "Martin Čajan (cajm00)" +
+                " Ruslan Strilianyi (strr07)" +
+                " Vojtěch Zabloudil (zabv03)" +
+                " Miloš Podolský (podm10)" +
+                " Mojmír Boxan (boxm00)" +
+                " Jiří Otoupal (otoj00)"+ System.lineSeparator()+ System.lineSeparator()+
+                "Popis:" + System.lineSeparator()+
+                "Jedná se o jednoduchou Ascii hru, kde se hráč snaží utéct z firmy, sbírá předměty," +
+                " které následně uvidí v inventáři a může je použít. Použití předmětu může hráči vrátit zdraví, nebo " +
+                "zvýšit poškození útoku. Na každé mapě čeká na hráče několik nepřátel, " +
+                "které musí porazit, aby se mohl dostat dál, k tomu může střílet projektily a používat schopnosti. Nepřátelé dělají to samé. " +
+                "Mezi mapami se hráč přesouvá pomocí portálu na konci každé mapy." + System.lineSeparator() +
+                "Cílem hry je dostat se na poslední mapu a projít posledním portálem.");
+        alert.showAndWait();
     }
 }
