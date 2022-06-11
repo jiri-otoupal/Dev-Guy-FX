@@ -5,6 +5,8 @@ package com.devguy.devguyfx.level;
 import com.devguy.devguyfx.entities.*;
 import com.devguy.devguyfx.entities.enemies.Skeleton;
 import com.devguy.devguyfx.entities.enemies.SpawnPoint;
+import com.devguy.devguyfx.entities.items.Coffee;
+import com.devguy.devguyfx.entities.items.EnergyDrink;
 import com.devguy.devguyfx.entities.persistent.EmptySpace;
 import com.devguy.devguyfx.entities.persistent.InvisibleWall;
 import com.devguy.devguyfx.entities.persistent.Wall;
@@ -43,7 +45,7 @@ public class TunnelsFight extends Level {
                 "ww                                   w                                         i",
                 "ww                s                  w                             o           i",
                 "ww                                   w                                         i",
-                "ww                                   w                                         i",
+                "ww        c                          w                                         i",
                 "ww v                                 w                                         i",
                 "ww                                                                             i",
                 "                                                                                ",
@@ -77,6 +79,7 @@ public class TunnelsFight extends Level {
             put('k', new Crate(level));
             put('m', new Crate(level));
             put('f', new Bone(level));
+            put('c', new EnergyDrink(level));
             put('l', new PortalToWin(level, "Portal"));
             put('i', new InvisibleWall(level));
             put('v', new SpawnVolume(level, 30, 1, "Spawn"));
