@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class CompanyFight extends Level {
     public CompanyFight(int width, int height, Streamer streamer) throws InvalidTemplateMap {
-        super("Escape", width, height, streamer);
+        super("Escape1", width, height, streamer);
         this.mapToTranslate = new String[]{
                 "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
                 "i                                                                              i",
