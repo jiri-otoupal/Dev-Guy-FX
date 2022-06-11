@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -25,8 +26,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class GameController {
     public Stage usedStage = null;
@@ -184,5 +190,23 @@ public class GameController {
     }
 
     public void about(ActionEvent actionEvent) {
+
+        Stage windowStage = new Stage();
+
+        WebView webView = new WebView();
+
+        InputStream inputStream = this.getClass().getResourceAsStream("help.html");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String lines = String.join("\n", bufferedReader.lines().toList());
+
+        webView.getEngine().loadContent(lines);
+
+        Scene scene = new Scene(webView, 500, 800);
+
+        windowStage.setTitle("About Game");
+        windowStage.setScene(scene);
+        windowStage.show();
     }
+
 }
