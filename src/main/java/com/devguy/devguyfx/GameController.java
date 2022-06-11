@@ -112,6 +112,9 @@ public class GameController {
                     item = player.hotbar.removeItem(db.getString());
                     if (item != null) {
                         item.first.use(player);
+                        if (player.hotbar.items.size() == 0) {
+                            player.hotbar.clearItems();
+                        }
                         return;
                     }
                 } catch (Level.InvalidTemplateMap e) {
