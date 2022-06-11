@@ -3,7 +3,6 @@ package com.devguy.devguyfx.entities.items;
 
 import com.devguy.devguyfx.entities.Entity1D;
 import com.devguy.devguyfx.entities.Player;
-import com.devguy.devguyfx.entities.items.effects.Coffeine;
 import com.devguy.devguyfx.entities.items.effects.EnergyEffect;
 import com.devguy.devguyfx.level.Level;
 

@@ -3,6 +3,7 @@ package com.devguy.devguyfx.saves;
 
 import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.items.Coffee;
+import com.devguy.devguyfx.entities.items.EnergyDrink;
 import com.devguy.devguyfx.level.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -84,6 +85,8 @@ public class SaveOperator {
             Integer count = Integer.valueOf(childNodes.item(3).getTextContent());
             if (name.equalsIgnoreCase("coffee"))
                 player.backpack.insertItem(new Coffee(level), count);
+            if (name.equalsIgnoreCase("EnergyDrink"))
+                player.backpack.insertItem(new EnergyDrink(level), count);
         }
         return player;
 
