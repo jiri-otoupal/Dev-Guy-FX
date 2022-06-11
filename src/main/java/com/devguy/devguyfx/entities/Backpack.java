@@ -37,18 +37,29 @@ public class Backpack {
         if (this.items.size() >= maxSize)
             return false;
 
+        insertCount(item, 1);
+        return true;
+    }
 
+    public boolean insertItem(Item item, Integer count) {
+        if (this.items.size() >= maxSize)
+            return false;
+
+        insertCount(item, count);
+        return true;
+    }
+
+    private void insertCount(Item item, Integer count) {
         if (this.items.containsKey(item.itemName)) {
             Pair<UiItem, Integer> pair = this.items.get(item.itemName);
             Integer storedCount = pair.second;
 
-            pair.first.setCount(storedCount + 1);
-            this.items.put(item.itemName, new Pair<>(pair.first, storedCount + 1));
+            pair.first.setCount(storedCount + count);
+            this.items.put(item.itemName, new Pair<>(pair.first, storedCount + count));
         } else {
-            UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/coffee.png"), nextPosition(), renderTarget, 1);
-            this.items.put(item.itemName, new Pair<>(uiItem, 1));
+            UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/coffee.png"), nextPosition(), renderTarget, count);
+            this.items.put(item.itemName, new Pair<>(uiItem, count));
         }
-        return true;
     }
 
     public @Nullable Pair<Item, Integer> removeItem(String itemName) {

@@ -44,7 +44,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Game">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New" onAction="#NewGame"/>
+                        <MenuItem mnemonicParsing="false" text="Menu" onAction="#NewGame"/>
                         <MenuItem mnemonicParsing="false" text="Quit" onAction="#Exit"/>
                     </items>
                 </Menu>

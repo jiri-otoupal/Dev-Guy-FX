@@ -134,11 +134,7 @@ public class GameController {
     public void toggleInventory() {
         inventory_toggle.setText((inventory_toggle.isSelected() ? "Close" : "Open").concat(" Inventory"));
         inventory_pane.setVisible(inventory_toggle.isSelected());
-        if (inventory_toggle.isSelected() && this.usedStage != null) {
-            usedStage.setWidth(usedStage.getWidth() + inventory_pane.getPrefWidth());
-        } else if (this.usedStage != null) {
-            usedStage.setWidth(usedStage.getWidth() - inventory_pane.getPrefWidth());
-        }
+
         game_screen.requestFocus();
     }
 
