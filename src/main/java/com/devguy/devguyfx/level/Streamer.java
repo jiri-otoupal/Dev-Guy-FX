@@ -151,7 +151,7 @@ public class Streamer {
         } catch (Level.InvalidTemplateMap e) {
             e.printStackTrace();
         }
-        if (this.player != null && !level.name.equals("Escape")) {
+        if (this.player != null && !level.name.equals("Escape") && !level.name.toLowerCase().contains("menu")) {
             SaveOperator.saveGame("save.xml", this.player);
             new StaticText(level, "Saved Game", 200).spawn(new Point(1, 2));
         }
@@ -188,10 +188,11 @@ public class Streamer {
         }
 
         // Background Props need to be rendered again to compensate overwrites
-        for (BackgroundProp prop : this.loadedLevel.backgroundProps)
+        for (int prop_index = 0; prop_index < this.loadedLevel.backgroundProps.size(); prop_index++) {
+            BackgroundProp prop = this.loadedLevel.backgroundProps.get(prop_index);
             if (prop.absPosition != null && prop.visible)
                 prop.render(this.map, prop.absPosition);
-
+        }
         //Platform.runLater(() -> terminal.setText(renderOutput.toString()));
         currentFrame.setValue(renderOutput.toString());
 

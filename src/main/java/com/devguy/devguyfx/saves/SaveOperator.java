@@ -2,9 +2,13 @@ package com.devguy.devguyfx.saves;
 
 
 import com.devguy.devguyfx.entities.Player;
+
 import com.devguy.devguyfx.level.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -69,6 +73,17 @@ public class SaveOperator {
         Player player = new Player(level, (int) health, speed, fireRate);
         player.enableGravity = enableGravity;
         player.gravity = gravity;
+
+        NodeList items = doc.getElementsByTagName("item");
+
+        for (int i = 0; i < items.getLength(); i++) {
+            Node item = items.item(i);
+            NodeList childNodes = item.getChildNodes();
+            String name = childNodes.item(1).getTextContent();
+            Integer count = Integer.valueOf(childNodes.item(3).getTextContent());
+            if (name.equalsIgnoreCase("coffee"))
+                player.backpack.insertItem(new Coffee(level), count);
+        }
         return player;
 
     }
@@ -118,7 +133,7 @@ public class SaveOperator {
                 name.appendChild(dom.createTextNode(player.backpack.items.get(item).first.item.itemName));
                 Element count = dom.createElement("count");
                 itemElement.appendChild(count);
-                count.appendChild(dom.createTextNode(String.valueOf(player.backpack.items.get(item))));
+                count.appendChild(dom.createTextNode(String.valueOf(player.backpack.items.get(item).second)));
                 backpack.appendChild(itemElement);
             }
             playerElement.appendChild(backpack);
@@ -131,7 +146,6 @@ public class SaveOperator {
                 tr.setOutputProperty(OutputKeys.INDENT, "yes");
                 tr.setOutputProperty(OutputKeys.METHOD, "xml");
                 tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-                tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "save.dtd");
                 tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
                 // send DOM to file

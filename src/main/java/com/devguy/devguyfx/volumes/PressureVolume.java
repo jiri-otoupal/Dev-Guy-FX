@@ -9,8 +9,8 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 
 
-public class SpawnVolume extends Volume {
-    public SpawnVolume(Level currentLevel, int width, int height, String name) {
+public class PressureVolume extends Volume {
+    public PressureVolume(Level currentLevel, int width, int height, String name) {
         super(currentLevel, width, height, name);
     }
 
