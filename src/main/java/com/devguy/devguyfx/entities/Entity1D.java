@@ -8,9 +8,7 @@ import com.devguy.devguyfx.level.Level;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
 
-
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.*;
 
 public class Entity1D implements IEntity {
@@ -32,6 +30,7 @@ public class Entity1D implements IEntity {
     public Text currentRenderedText;
     protected boolean markedForErase = false;
     public boolean visible = true;
+    protected boolean can_collide = true;
 
 
     public char[][] getRepresentMap() {
@@ -167,7 +166,7 @@ public class Entity1D implements IEntity {
 
     @Override
     public boolean canCollide() {
-        return true;
+        return can_collide;
     }
 
     @Override

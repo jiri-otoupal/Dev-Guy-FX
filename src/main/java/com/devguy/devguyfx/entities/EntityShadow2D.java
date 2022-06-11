@@ -12,6 +12,7 @@ public class EntityShadow2D extends Entity1D {
         this.representingChar = c;
         this.shadow_parent = parent;
         this.persistent = parent.persistent;
+        this.can_collide = parent.canCollide();
     }
 
 

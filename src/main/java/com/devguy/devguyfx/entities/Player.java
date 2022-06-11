@@ -313,9 +313,9 @@ public class Player extends AliveEntity {
         if (activeEffects.size() > 0)
             itemCoffeeDecay = activeEffects.get("Coffeine");
         if (itemCoffeeDecay != null && itemCoffeeDecay.decayTime > 0)
-            new Cpp(currentLevel, damage * 2, mass * 2, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(1.5F));
+            new Cpp(currentLevel, damage * 2, mass * 2, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(2F));
         else
-            new Csharp(currentLevel, damage, mass, enableGravity, applyPhysicsImpulse, spawnPoint, vector);
+            new Csharp(currentLevel, damage, mass, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(1.5F));
     }
 
     /**
