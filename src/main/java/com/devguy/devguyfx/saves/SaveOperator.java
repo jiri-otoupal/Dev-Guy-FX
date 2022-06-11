@@ -31,6 +31,7 @@ public class SaveOperator {
             switch (levelName) {
                 case "Escape" -> level = new CompanyFight(streamer.width, streamer.height, streamer);
                 case "Street Fight" -> level = new StreetFight(streamer.width, streamer.height, streamer);
+                case "Tunnels Fight" -> level = new StreetFight(streamer.width, streamer.height, streamer);
             }
         } catch (Level.InvalidTemplateMap e) {
             e.printStackTrace();
