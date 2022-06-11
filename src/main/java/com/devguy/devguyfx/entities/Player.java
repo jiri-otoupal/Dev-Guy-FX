@@ -31,6 +31,15 @@ public class Player extends AliveEntity {
     protected StaticText displayedHealth;
     public Map<String, ItemEffect> activeEffects;
 
+    static public void resetPlayer(Level spawn) {
+        if (instance == null)
+            return;
+        instance.activeEffects.clear();
+        instance.backpack.clearItems();
+        instance.hotbar.clearItems();
+        instance = new Player(spawn, 100, 1F, 100);
+    }
+
     static public Player getInstance() {
         return Player.instance;
     }

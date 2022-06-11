@@ -38,6 +38,7 @@ public class StartMenu extends Menu {
                 try {
                     this.level.streamer.controller = new PlayerPawnController();
                     CompanyFight levelCompanyFight = new CompanyFight(this.level.streamer.width, this.level.streamer.height, this.level.streamer);
+                    Player.resetPlayer(levelCompanyFight);
                     this.level.streamer.loadLevel(levelCompanyFight);
                 } catch (Level.InvalidTemplateMap e) {
                     e.printStackTrace();

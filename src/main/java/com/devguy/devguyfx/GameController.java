@@ -1,8 +1,10 @@
 package com.devguy.devguyfx;
 
+import com.devguy.devguyfx.control.PlayerPawnController;
 import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.level.Level;
+import com.devguy.devguyfx.level.MainMenuLevel;
 import com.devguy.devguyfx.structure.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +54,7 @@ public class GameController {
         single_instance = this;
         game_screen.setFont(Font.font("monospace"));
         //Init button text
-        toggleInventory(null);
+        toggleInventory();
 
 
         window.setOnDragOver(event -> {
@@ -129,14 +131,38 @@ public class GameController {
         return null;
     }
 
-    public void toggleInventory(ActionEvent actionEvent) {
+    public void toggleInventory() {
         inventory_toggle.setText((inventory_toggle.isSelected() ? "Close" : "Open").concat(" Inventory"));
         inventory_pane.setVisible(inventory_toggle.isSelected());
-        if (inventory_toggle.isSelected() && this.usedStage != null) {
-            usedStage.setWidth(usedStage.getWidth() + inventory_pane.getPrefWidth());
-        } else if (this.usedStage != null) {
-            usedStage.setWidth(usedStage.getWidth() - inventory_pane.getPrefWidth());
-        }
+
         game_screen.requestFocus();
+    }
+
+    public void NewGame(ActionEvent actionEvent) {
+
+        GameController.getInstance().inventory_toggle.setSelected(false);
+        GameController.getInstance().toggleInventory();
+
+        Player player = Player.getInstance();
+
+        if (player == null)
+            return;
+        GameController.getInstance().effectBar.getChildren().clear();
+        Level level = player.currentLevel;
+        player.activeEffects.clear();
+        try {
+            player.currentLevel.streamer.controller = new PlayerPawnController();
+            MainMenuLevel mainMenuLevel = new MainMenuLevel(level.streamer.width, level.streamer.height, level.streamer);
+            player.currentLevel.streamer.loadLevel(mainMenuLevel);
+        } catch (Level.InvalidTemplateMap e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    public void about(ActionEvent actionEvent) {
     }
 }

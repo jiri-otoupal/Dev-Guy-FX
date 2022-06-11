@@ -1,10 +1,10 @@
 package com.devguy.devguyfx.level;
 
 import com.devguy.devguyfx.control.MenuController;
-import com.devguy.devguyfx.menus.Menu;
 import com.devguy.devguyfx.entities.persistent.EmptySpace;
 import com.devguy.devguyfx.entities.textrender.LogoText;
 import com.devguy.devguyfx.entities.textrender.MenuItemText;
+import com.devguy.devguyfx.menus.Menu;
 import com.devguy.devguyfx.menus.StartMenu;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class MainMenuLevel extends Level {
     public Menu menu;
 
     public MainMenuLevel(int width, int height, Streamer streamer) throws Level.InvalidTemplateMap {
-        super("Test Level", width, height, streamer);
+        super("Main Menu", width, height, streamer);
         this.doGroundFilling = false;
         this.mapToTranslate = new String[]{
                 "                                                                                ",
