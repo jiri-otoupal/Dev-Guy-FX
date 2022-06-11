@@ -70,6 +70,8 @@ public class SaveOperator {
         float gravity = Float.parseFloat(doc.getElementsByTagName("gravity").item(0).getTextContent());
         String levelName = doc.getElementsByTagName("level").item(0).getTextContent();
         Level level = getLevelFromName(levelName, streamer);
+        if (level == null)
+            return null;
         Player player = new Player(level, (int) health, speed, fireRate);
         player.enableGravity = enableGravity;
         player.gravity = gravity;

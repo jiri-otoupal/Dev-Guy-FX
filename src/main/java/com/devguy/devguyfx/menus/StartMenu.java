@@ -1,5 +1,6 @@
 package com.devguy.devguyfx.menus;
 
+import com.devguy.devguyfx.GameController;
 import com.devguy.devguyfx.control.MenuController;
 import com.devguy.devguyfx.control.PlayerPawnController;
 import com.devguy.devguyfx.entities.Player;
@@ -21,8 +22,8 @@ public class StartMenu extends Menu {
     @Override
     public List<MenuItemText> getMenuItems() {
         ArrayList<MenuItemText> items = new ArrayList<>();
-        items.add(new MenuItemText(level, "Start Game", "start"));
-        items.add(new MenuItemText(level, "Load Game", "load"));
+        items.add(new MenuItemText(level, "Start New Game", "start"));
+        items.add(new MenuItemText(level, "Load Last Game Save", "load"));
         items.add(new MenuItemText(level, "Controls", "controls"));
         items.add(new MenuItemText(level, "Exit", "exit"));
         setMenuItems(items);
@@ -46,8 +47,10 @@ public class StartMenu extends Menu {
                 break;
             case "load":
                 Player player = SaveOperator.loadSave("save.xml", this.level.streamer);
-                if (player == null)
+                if (player == null) {
+                    GameController.showOverlay("No Save Found", 1000);
                     return;
+                }
                 this.level.streamer.controller = new PlayerPawnController();
                 this.level.streamer.player = player;
                 this.level.streamer.loadLevel(player.currentLevel);

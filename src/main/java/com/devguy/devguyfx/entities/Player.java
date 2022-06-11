@@ -18,6 +18,7 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class Player extends AliveEntity {
         return Player.instance;
     }
 
-    public Player(Level currentLevel, int health, float speed, long fireRateMs) {
+    public Player(@NotNull Level currentLevel, int health, float speed, long fireRateMs) {
         super(currentLevel, health, speed, fireRateMs, 6, 0.15F);
         GameController.getInstance().healthBar.widthProperty().bind(this.healthBarWidth);
         updateHealthBar();
@@ -346,7 +347,7 @@ public class Player extends AliveEntity {
 
     @Override
     public void invokeImpactEffect(Point impactLocation) { //TODO from left and right
-        if (this.currentLevel.streamer != null)
+        if (this.currentLevel != null && this.currentLevel.streamer != null)
             this.currentLevel.streamer.assignAt(impactLocation, new EffectHitPlayer(this.currentLevel, 40));
     }
 }

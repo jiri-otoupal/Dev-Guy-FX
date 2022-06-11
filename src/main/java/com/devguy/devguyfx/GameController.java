@@ -6,6 +6,9 @@ import com.devguy.devguyfx.entities.items.Item;
 import com.devguy.devguyfx.level.Level;
 import com.devguy.devguyfx.level.MainMenuLevel;
 import com.devguy.devguyfx.structure.Pair;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,6 +26,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GameController {
     public Stage usedStage = null;
@@ -47,6 +51,19 @@ public class GameController {
             single_instance = new GameController();
 
         return single_instance;
+    }
+
+    public static void showOverlay(String text, Integer duration) {
+        final KeyFrame kf1 = new KeyFrame(Duration.seconds(0), e -> {
+            getInstance().overlay.textProperty().setValue(text);
+            getInstance().overlay.visibleProperty().setValue(true);
+        });
+        final KeyFrame kf2 = new KeyFrame(Duration.millis(duration), e -> {
+            getInstance().overlay.visibleProperty().setValue(false);
+        });
+
+        final Timeline timeline = new Timeline(kf1, kf2);
+        Platform.runLater(timeline::play);
     }
 
 

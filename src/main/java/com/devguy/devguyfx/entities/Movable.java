@@ -5,7 +5,6 @@ import com.devguy.devguyfx.level.Level;
 import com.devguy.devguyfx.structure.ForceVector;
 import com.devguy.devguyfx.structure.Point;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -27,7 +26,7 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
     public Movable(Level currentLevel, boolean enableGravity) {
         super(currentLevel);
         this.enableGravity = enableGravity;
-        if (!persistent && currentLevel.streamer != null) {
+        if (!persistent && currentLevel != null && currentLevel.streamer != null) {
             currentLevel.streamer.addListener(this);
         }
         movements = new LinkedList<>();
@@ -157,6 +156,7 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
 
     /**
      * Update Animation on event if subscribed
+     *
      * @param elapsedMs between updates
      */
     @Override
@@ -191,6 +191,7 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
 
     /**
      * Set animation state to be animated such as shooting, jumping etc.
+     *
      * @param state to be animated
      */
     @Override
