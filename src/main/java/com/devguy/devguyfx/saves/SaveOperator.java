@@ -2,11 +2,9 @@ package com.devguy.devguyfx.saves;
 
 
 import com.devguy.devguyfx.entities.Player;
-import com.devguy.devguyfx.entities.items.Coffee;
-import com.devguy.devguyfx.level.CompanyFight;
-import com.devguy.devguyfx.level.Level;
-import com.devguy.devguyfx.level.Streamer;
-import com.devguy.devguyfx.level.StreetFight;
+
+import com.devguy.devguyfx.level.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,6 +32,7 @@ public class SaveOperator {
             switch (levelName) {
                 case "Escape" -> level = new CompanyFight(streamer.width, streamer.height, streamer);
                 case "Street Fight" -> level = new StreetFight(streamer.width, streamer.height, streamer);
+                case "Tunnels Fight" -> level = new TunnelsFight(streamer.width, streamer.height, streamer);
             }
         } catch (Level.InvalidTemplateMap e) {
             e.printStackTrace();
