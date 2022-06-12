@@ -1,17 +1,18 @@
 package com.devguy.devguyfx.entities.items;
 
+
 import com.devguy.devguyfx.entities.Entity1D;
 import com.devguy.devguyfx.entities.Player;
-import com.devguy.devguyfx.entities.items.effects.Caffeine;
+import com.devguy.devguyfx.entities.items.effects.EnergyEffect;
 import com.devguy.devguyfx.level.Level;
 
-public class Coffee extends ItemWithEffect {
-    public Coffee(Level currentLevel) {
-        super(currentLevel, false, "Coffee", 2500);
-        this.animationState = new char[][][][]{{{{'c', '[', '_', ']'}}, {{'c', '[', '▁', ']'}}, {{'c', '[', '▂', ']'}}, {{'c', '[', '▃', ']'}}, {{'c', '[', '▄', ']'}}}};
+public class EnergyDrink extends ItemWithEffect {
+    public EnergyDrink(Level currentLevel) {
+        super(currentLevel, false, "Energy Drink", 1500);
+        this.animationState = new char[][][][]{{{{'[', '⚡', ']'}}, {{'[', '▁', ']'}}, {{'[', '⚡', ']'}}, {{'[', '▁', ']'}}, {{'[', '⚡', ']'}}}};
         this.selectedAnimationFrames = this.animationState[this.currentAnimationState];
         this.frameDurationMs = 25;
-        this.itemImage = "coffee.png";
+        this.itemImage = "EnergyDrink.png";
     }
 
     /**
@@ -22,10 +23,9 @@ public class Coffee extends ItemWithEffect {
      */
     @Override
     public boolean use(Entity1D instigator) {
-        // Only player can use coffee this cast is safe
         Player player = (Player) instigator;
-        Caffeine caffeine = new Caffeine(effectTicksMsLast);
-        player.activeEffects.put(caffeine.effectName, caffeine);
+        EnergyEffect energyEffect = new EnergyEffect(effectTicksMsLast);
+        player.activeEffects.put(energyEffect.effectName, energyEffect);
         player.sayStatic("Used " + itemName);
         return true;
     }

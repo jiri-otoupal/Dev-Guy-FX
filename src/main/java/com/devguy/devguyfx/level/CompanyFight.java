@@ -4,6 +4,7 @@ import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.enemies.Skeleton;
 import com.devguy.devguyfx.entities.enemies.SpawnPoint;
 import com.devguy.devguyfx.entities.items.Coffee;
+import com.devguy.devguyfx.entities.items.EnergyDrink;
 import com.devguy.devguyfx.entities.persistent.EmptySpace;
 import com.devguy.devguyfx.entities.persistent.InvisibleWall;
 import com.devguy.devguyfx.entities.persistent.Wall;
@@ -68,7 +69,7 @@ public class CompanyFight extends Level {
             put('h', new Computer(level));
             put('p', streamer.player);
             put('e', new Skeleton(level, 50, 1F, 200, 6, 0.2F));
-            put('c', new Coffee(level));
+            put('c', new EnergyDrink(level));
             put('b', new Coffee(level));
             put('l', new PortalToStreetFight(level, "Portal"));
             put('i', new InvisibleWall(level));

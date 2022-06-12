@@ -2,7 +2,7 @@ package com.devguy.devguyfx.level;
 
 import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.enemies.SpawnPoint;
-import com.devguy.devguyfx.entities.items.Coffee;
+import com.devguy.devguyfx.entities.items.HolyWater;
 import com.devguy.devguyfx.entities.persistent.EmptySpace;
 import com.devguy.devguyfx.entities.persistent.InvisibleWall;
 import com.devguy.devguyfx.entities.persistent.Wall;
@@ -64,7 +64,7 @@ public class StreetFight extends Level {
             put('q', new City(level));
             put('s', new Crate(level));
             put('e', new SpawnPoint(level, 500, 3));
-            put('c', new Coffee(level));
+            put('c', new HolyWater(level));
             put('l', new PortalToTunnels(level, "Portal"));
             put('i', new InvisibleWall(level));
             put('v', new SpawnVolume(level, 30, 1, "Spawn"));
