@@ -88,7 +88,6 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
                 if (v > 0.5) {
                     float damage = v * mass;
                     collidingEntity.applyDamage(damage);
-                    System.out.println("Applied damage " + damage);
                 }
                 this.pushing = true;
             }

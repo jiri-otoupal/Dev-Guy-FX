@@ -66,7 +66,6 @@ public class UiItem {
     }
 
     public void destroy() {
-        System.out.println("Parent ".concat(String.valueOf(this.parentGrid.getChildren().size())));
         Platform.runLater(() -> this.parentGrid.getChildren().remove(this.itemPane));
     }
 }

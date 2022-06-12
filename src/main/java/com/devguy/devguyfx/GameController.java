@@ -98,7 +98,6 @@ public class GameController {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                System.out.println("Dropped: " + db.getString());
                 success = true;
             }
             event.setDropCompleted(success);
