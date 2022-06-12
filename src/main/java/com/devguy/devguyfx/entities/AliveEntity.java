@@ -11,11 +11,14 @@ import java.util.Random;
 
 public abstract class AliveEntity extends Animated implements IAliveEntity {
     protected final int max_health;
+    public float projectileDamage = 5;
+    public int projectileMass = 1;
     protected boolean crouching = false;
     protected float jumpHeight;
     protected boolean shooting = false;
     protected String[] damageReactions;
     public boolean dead = false;
+    public float projectileSpeed = 1;
 
 
     public AliveEntity(Level currentLevel, int health, float speed, long fireRate, float jumpHeight, float gravity) {
@@ -103,15 +106,15 @@ public abstract class AliveEntity extends Animated implements IAliveEntity {
             if (this.facingLeft) {
                 Point muzzlePointLeft = this.muzzlePoints.get(0);
                 muzzlePoint = new Point(muzzlePointLeft.x - 1, muzzlePointLeft.y);
-                vector = new ForceVector(-0.2F, 0F);
+                vector = new ForceVector(-0.2F * projectileSpeed, 0F);
             } else {
                 Point muzzlePointRight = this.muzzlePoints.get(1);
                 muzzlePoint = new Point(muzzlePointRight.x + 1, muzzlePointRight.y);
-                vector = new ForceVector(0.2F, 0F);
+                vector = new ForceVector(0.2F * projectileSpeed, 0F);
             }
             Entity1D projectileSpawnPoint = this.currentLevel.streamer.getInstanceAt(muzzlePoint);
             if (!projectileSpawnPoint.persistent && !projectileSpawnPoint.canCollide())
-                spawnProjectile(this.currentLevel, 5, 1, true, true, muzzlePoint, vector);
+                spawnProjectile(this.currentLevel, projectileDamage, projectileMass, true, true, muzzlePoint, vector);
             else if (!projectileSpawnPoint.persistent && projectileSpawnPoint.canCollide())
                 projectileSpawnPoint.shadow_parent.applyDamage(5);
         }

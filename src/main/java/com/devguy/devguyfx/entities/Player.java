@@ -193,6 +193,7 @@ public class Player extends AliveEntity {
 
     public Player(Level currentLevel, Player player) {
         this(currentLevel, (int) player.health, player.speed, player.fireRate);
+        this.hotbar = player.hotbar;
         this.backpack = player.backpack;
         this.activeEffects = player.activeEffects;
     }
@@ -291,6 +292,7 @@ public class Player extends AliveEntity {
                 itemEffect.apply(this);
                 itemEffect.decayTime -= ticksMs;
             } else if (itemEffect != null) { // If duration is eq or less than 0 remove item from effects
+                itemEffect.deprecate(this);
                 activeEffects.remove(itemEffect.effectName);
                 this.sayStatic("Deprecated " + itemEffect.effectName);
             }
@@ -311,7 +313,7 @@ public class Player extends AliveEntity {
     public void spawnProjectile(Level currentLevel, float damage, float mass, boolean enableGravity, boolean applyPhysicsImpulse, Point spawnPoint, ForceVector vector) {
         ItemEffect itemCoffeeDecay = null;
         if (activeEffects.size() > 0)
-            itemCoffeeDecay = activeEffects.get("Coffeine");
+            itemCoffeeDecay = activeEffects.get("Caffeine");
         if (itemCoffeeDecay != null && itemCoffeeDecay.decayTime > 0)
             new Cpp(currentLevel, damage * 2, mass * 2, enableGravity, applyPhysicsImpulse, spawnPoint, vector.multiply(2F));
         else

@@ -2,7 +2,7 @@ package com.devguy.devguyfx.entities.items;
 
 import com.devguy.devguyfx.entities.Entity1D;
 import com.devguy.devguyfx.entities.Player;
-import com.devguy.devguyfx.entities.items.effects.Coffeine;
+import com.devguy.devguyfx.entities.items.effects.Caffeine;
 import com.devguy.devguyfx.level.Level;
 
 public class Coffee extends ItemWithEffect {
@@ -11,6 +11,7 @@ public class Coffee extends ItemWithEffect {
         this.animationState = new char[][][][]{{{{'c', '[', '_', ']'}}, {{'c', '[', '▁', ']'}}, {{'c', '[', '▂', ']'}}, {{'c', '[', '▃', ']'}}, {{'c', '[', '▄', ']'}}}};
         this.selectedAnimationFrames = this.animationState[this.currentAnimationState];
         this.frameDurationMs = 25;
+        this.itemImage = "coffee.png";
     }
 
     /**
@@ -23,8 +24,8 @@ public class Coffee extends ItemWithEffect {
     public boolean use(Entity1D instigator) {
         // Only player can use coffee this cast is safe
         Player player = (Player) instigator;
-        Coffeine coffeine = new Coffeine(effectTicksMsLast);
-        player.activeEffects.put(coffeine.effectName, coffeine);
+        Caffeine caffeine = new Caffeine(effectTicksMsLast);
+        player.activeEffects.put(caffeine.effectName, caffeine);
         player.sayStatic("Used " + itemName);
         return true;
     }

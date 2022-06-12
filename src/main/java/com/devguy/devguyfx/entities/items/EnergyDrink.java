@@ -8,10 +8,11 @@ import com.devguy.devguyfx.level.Level;
 
 public class EnergyDrink extends ItemWithEffect {
     public EnergyDrink(Level currentLevel) {
-        super(currentLevel, false, "EnergyDrink", 2500);
-        this.animationState = new char[][][][]{{{{ '[', '⚡', ']'}}, {{ '[', '▁', ']'}}, {{ '[', '⚡', ']'}}, {{ '[', '▁', ']'}}, {{ '[', '⚡', ']'}}}};
+        super(currentLevel, false, "Energy Drink", 1500);
+        this.animationState = new char[][][][]{{{{'[', '⚡', ']'}}, {{'[', '▁', ']'}}, {{'[', '⚡', ']'}}, {{'[', '▁', ']'}}, {{'[', '⚡', ']'}}}};
         this.selectedAnimationFrames = this.animationState[this.currentAnimationState];
         this.frameDurationMs = 25;
+        this.itemImage = "EnergyDrink.png";
     }
 
     /**

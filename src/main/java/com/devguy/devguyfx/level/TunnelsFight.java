@@ -1,21 +1,19 @@
 package com.devguy.devguyfx.level;
 
 
-
-import com.devguy.devguyfx.entities.*;
+import com.devguy.devguyfx.entities.Player;
 import com.devguy.devguyfx.entities.enemies.Skeleton;
 import com.devguy.devguyfx.entities.enemies.SpawnPoint;
-import com.devguy.devguyfx.entities.items.Coffee;
 import com.devguy.devguyfx.entities.items.EnergyDrink;
+import com.devguy.devguyfx.entities.items.HolyWater;
 import com.devguy.devguyfx.entities.persistent.EmptySpace;
 import com.devguy.devguyfx.entities.persistent.InvisibleWall;
 import com.devguy.devguyfx.entities.persistent.Wall;
 import com.devguy.devguyfx.entities.portal.PortalToWin;
-import com.devguy.devguyfx.entities.props.background.Column;
 import com.devguy.devguyfx.entities.props.background.Bone;
+import com.devguy.devguyfx.entities.props.background.Column;
 import com.devguy.devguyfx.entities.props.background.TorchLight;
 import com.devguy.devguyfx.entities.props.interactible.Crate;
-import com.devguy.devguyfx.quests.QuestCompany;
 import com.devguy.devguyfx.quests.QuestTunnelsFight;
 import com.devguy.devguyfx.volumes.SpawnVolume;
 
@@ -40,7 +38,7 @@ public class TunnelsFight extends Level {
                 "ww             1              2              3              4               5  i",
                 "ww                                                                             i",
                 "ww                                                                   l         i",
-                "ww                                                                             i",
+                "ww                                   h                                         i",
                 "ww   p                               w                                         i",
                 "ww                                   w                                         i",
                 "ww                s                  w                             o           i",
@@ -80,6 +78,7 @@ public class TunnelsFight extends Level {
             put('m', new Crate(level));
             put('f', new Bone(level));
             put('c', new EnergyDrink(level));
+            put('h', new HolyWater(level));
             put('l', new PortalToWin(level, "Portal"));
             put('i', new InvisibleWall(level));
             put('v', new SpawnVolume(level, 30, 1, "Spawn"));

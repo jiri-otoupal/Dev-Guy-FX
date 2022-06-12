@@ -85,7 +85,9 @@ public class SaveOperator {
             Integer count = Integer.valueOf(childNodes.item(3).getTextContent());
             if (name.equalsIgnoreCase("coffee"))
                 player.backpack.insertItem(new Coffee(level), count);
-            if (name.equalsIgnoreCase("EnergyDrink"))
+            if (name.equalsIgnoreCase("Energy Drink"))
+                player.backpack.insertItem(new EnergyDrink(level), count);
+            if (name.equalsIgnoreCase("Holy Water"))
                 player.backpack.insertItem(new EnergyDrink(level), count);
         }
         return player;

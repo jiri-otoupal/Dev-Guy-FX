@@ -9,7 +9,7 @@ import com.devguy.devguyfx.structure.Point;
 
 public class Projectile extends Movable {
     public ForceVector vector;
-    public boolean appliesPhysicsImpulse;
+
     public float damage;
     public float mass;
 
@@ -18,7 +18,7 @@ public class Projectile extends Movable {
         this.absPosition = spawnPoint;
         currentLevel.streamer.assignAt(spawnPoint, this);
         representMap = new char[][]{{'☕'}};
-        this.gravity = 0.003F;
+        this.gravity = 0.003F * (mass / 10);
         this.vector = vector;
         this.persistent = false;
         this.appliesPhysicsImpulse = applyPhysicsImpulse;
@@ -32,11 +32,11 @@ public class Projectile extends Movable {
     public void applyProjectileMovement() {
         if (vector == null || this.currentLevel.streamer == null)
             return;
-        if (!move(this.vector.x, this.vector.y)) {
+        if (!move(this.vector.x, this.vector.y) || !this.falling) {
             erase(); // Destroy Instance
             for (Point collidingDelta : this.collisionDirections.keySet()) {
                 Point absCollisionPos = new Point(this.absPosition.x + (collidingDelta.x) * representMap[0].length, this.absPosition.y + collidingDelta.y);
-                if (!currentLevel.streamer.isValidLocation(absCollisionPos))
+                if (currentLevel.streamer == null || !currentLevel.streamer.isValidLocation(absCollisionPos))
                     return;
                 Entity1D usedInstance = this.currentLevel.streamer.getInstanceAt(absCollisionPos).shadow_parent;
                 if (usedInstance == null)

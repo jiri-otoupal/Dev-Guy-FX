@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Queue;
 
 public abstract class Movable extends Entity1D implements IMovable, IAnimation {
+    public boolean appliesPhysicsImpulse;
     protected long timeToShoot = 0;
     public float health;
     public long fireRate;
@@ -22,6 +23,7 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
     public Queue<float[]> movements;
     protected List<IAnimation> animationListeners;
     boolean pushing = false;
+    public float mass = 0.5F;
 
     public Movable(Level currentLevel, boolean enableGravity) {
         super(currentLevel);
@@ -80,7 +82,14 @@ public abstract class Movable extends Entity1D implements IMovable, IAnimation {
         if (this.isColliding().containsKey(dl)) {
             Entity1D collidingEntity = this.isColliding().get(dl);
             if (collidingEntity != null && !collidingEntity.persistent && !dl.equals(Directions.Bottom.vector) && !dl.equals(Directions.Top.vector)) {
-                collidingEntity.shadow_parent.applyPhysicsImpulse(0.5F, new ForceVector(dl));
+                ForceVector vector = new ForceVector(dl);
+                float v = Math.abs(mass * vector.computeVelocity());
+                collidingEntity.shadow_parent.applyPhysicsImpulse(this.mass, vector);
+                if (v > 0.5) {
+                    float damage = v * mass;
+                    collidingEntity.applyDamage(damage);
+                    System.out.println("Applied damage " + damage);
+                }
                 this.pushing = true;
             }
             return false;

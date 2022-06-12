@@ -11,7 +11,8 @@ public class HolyWater extends ItemWithEffect {
         super(currentLevel, false, "Holy Water", 2500);
         this.animationState = new char[][][][]{{{{'†', '[', '_', ']'}}, {{'†', '[', '▁', ']'}}, {{'†', '[', '▂', ']'}}, {{'†', '[', '▃', ']'}}, {{'†', '[', '▄', ']'}}}};
         this.selectedAnimationFrames = this.animationState[this.currentAnimationState];
-        this.frameDurationMs = 25;
+        this.frameDurationMs = 35;
+        this.itemImage = "hwater.png";
     }
 
     /**
@@ -23,9 +24,8 @@ public class HolyWater extends ItemWithEffect {
     @Override
     public boolean use(Entity1D instigator) throws Level.InvalidTemplateMap {
         Player player = (Player) instigator;
-        player.activeEffects.put(itemName, new HolyWaterEffect(10));
+        player.activeEffects.put(itemName, new HolyWaterEffect(500));
         player.sayStatic("Used " + itemName);
-        player.fireRate = 100;
         return true;
     }
 

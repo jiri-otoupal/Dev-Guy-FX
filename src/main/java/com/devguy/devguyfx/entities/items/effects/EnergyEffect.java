@@ -11,6 +11,19 @@ public class EnergyEffect extends ItemEffect {
 
     @Override
     public void apply(Player instigator) {
-        instigator.fireRate = 85;
+        if (applied)
+            return;
+        applied = true;
+        states.put("fireRate", (int) instigator.fireRate);
+        instigator.fireRate -= 50;
+        System.out.println(instigator.fireRate);
+    }
+
+    @Override
+    public void deprecate(Player instigator) {
+        if (states.isEmpty())
+            return;
+        instigator.fireRate = states.remove("fireRate");
+        System.out.println(instigator.fireRate);
     }
 }

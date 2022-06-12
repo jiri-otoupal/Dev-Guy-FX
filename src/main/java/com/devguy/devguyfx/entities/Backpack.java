@@ -57,7 +57,7 @@ public class Backpack {
             pair.first.setCount(storedCount + count);
             this.items.put(item.itemName, new Pair<>(pair.first, storedCount + count));
         } else {
-            UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/coffee.png"), nextPosition(), renderTarget, count);
+            UiItem uiItem = new UiItem(item, DGApplication.class.getResource("items/" + item.itemImage), nextPosition(), renderTarget, count);
             this.items.put(item.itemName, new Pair<>(uiItem, count));
         }
     }

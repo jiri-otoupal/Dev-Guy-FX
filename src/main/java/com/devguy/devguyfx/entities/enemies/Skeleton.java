@@ -7,7 +7,7 @@ import com.devguy.devguyfx.structure.Point;
 
 public class Skeleton extends Enemy {
     public Skeleton(Level currentLevel, int health, float speed, long fireRate, float jumpHeight, float gravity) {
-        super(currentLevel, health, speed, fireRate, jumpHeight, gravity, 30);
+        super(currentLevel, health, speed, fireRate, jumpHeight, gravity, 25);
         damageReactions = new String[]{"Argh", "Bastard", "You Die", "Errgh", "Jabba"};
         animationState = new char[][][][]{
                 {//Idle

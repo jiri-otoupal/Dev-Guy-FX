@@ -12,8 +12,8 @@ public class Crate extends Movable {
                 {'|', '/', '+', '+', '\\', '|'},
                 {'|', '_', '_', '_', '_', '|'},
         };
-
-
+        appliesPhysicsImpulse = true;
+        mass = 10;
     }
 
     /**

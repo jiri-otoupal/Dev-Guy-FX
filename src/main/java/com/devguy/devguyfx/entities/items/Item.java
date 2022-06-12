@@ -7,6 +7,7 @@ import com.devguy.devguyfx.level.Level;
 
 
 public abstract class Item extends Animated implements IItem {
+    public String itemImage;
     protected boolean instant; //Cannot be grabbed, its used immediately
     public String itemName; //Used for Quest id also
 
