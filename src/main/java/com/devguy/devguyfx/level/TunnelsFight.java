@@ -42,7 +42,7 @@ public class TunnelsFight extends Level {
                 "ww   p                               w                                         i",
                 "ww                                   w                                         i",
                 "ww                s                  w                             o           i",
-                "ww                                   w                                         i",
+                "ww                                                                             i",
                 "ww        c                          w                                         i",
                 "ww v                                 w                                         i",
                 "ww                                                                             i",
