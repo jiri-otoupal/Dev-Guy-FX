@@ -22,6 +22,7 @@ public class DGApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(DGApplication.class.getResource("game-screenV2.fxml"));
         DGApplication.fxmlLoader = fxmlLoader;
         Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        stage.setResizable(false);
         stage.setTitle("DevGuy FX");
         stage.setScene(scene);
         stage.show();

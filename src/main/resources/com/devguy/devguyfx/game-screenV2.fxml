@@ -66,7 +66,8 @@
 
                 <TextArea fx:id="game_screen" id="game_screen" editable="false" prefHeight="335.0" prefWidth="640.0"
                           AnchorPane.bottomAnchor="45.0"
-                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                />
                 <TextField fx:id="overlay" text="Overlay Text" editable="false" prefHeight="335.0" prefWidth="640.0"
                            AnchorPane.bottomAnchor="45.0" style="-fx-font-size: 48" opacity="0.8" alignment="CENTER"
                            visible="false"
